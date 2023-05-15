@@ -7,12 +7,13 @@ from pywhispercpp.model import Model
 
 load_dotenv(find_dotenv())
 WHISPER_MODEL = os.environ.get('WHISPER_MODEL')
+WHISPER_THREADS = os.environ.get('WHISPER_THREADS')
 
 
 def recognize(file):
     audio_array = audio_to_array(file.file)
 
-    model = Model(WHISPER_MODEL, language="ru")
+    model = Model(WHISPER_MODEL, n_threads=int(WHISPER_THREADS), language="ru")
     segments = model.transcribe(audio_array)
 
     return segments
